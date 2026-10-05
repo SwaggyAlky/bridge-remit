@@ -9,6 +9,11 @@ const port=Number(process.env.PORT||3000);const origin=process.env.APP_ORIGIN||`
 if(production && !origin.startsWith('https://')) throw Error('Set APP_ORIGIN to your HTTPS Render URL');
 const file=process.env.DEPLOYMENT_FILE||'deployment.sepolia.json';
 let deployment=null;if(fs.existsSync(file)) deployment=JSON.parse(fs.readFileSync(file,'utf8'));
+if(deployment){
+  const required=['ParticipantRegistry','DemoUSD','CorridorBook','RemittanceEscrow'];
+  if(deployment.complete===false||!required.every(n=>ethers.isAddress(deployment.addresses?.[n])&&Array.isArray(deployment.abi?.[n])&&deployment.abi[n].length))throw Error('Incomplete deployment configuration; finish all four contracts and corridor setup first');
+  if(!Number.isSafeInteger(deployment.chainId)||(production&&deployment.chainId!==11155111))throw Error('Production deployment must use Sepolia');
+}
 const provider=deployment&&process.env.RPC_URL?new ethers.JsonRpcProvider(process.env.RPC_URL,undefined,{cacheTimeout:0}):null;
 const contracts={};if(deployment)for(const name of Object.keys(deployment.addresses))contracts[name]=new ethers.Contract(deployment.addresses[name],deployment.abi[name],provider);
 if(provider){const network=await provider.getNetwork();if(Number(network.chainId)!==deployment.chainId)throw Error('RPC and deployment chain mismatch');for(const addr of Object.values(deployment.addresses))if(await provider.getCode(addr)==='0x')throw Error('Deployment has no contract bytecode');}
