@@ -2,15 +2,17 @@
 services:
   - type: web
     name: bridge-remit
-    runtime: node
+    runtime: python
     plan: free
-    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm run build
-    startCommand: node server/index.mjs
+    buildCommand: pip install -r requirements.txt && corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm run build
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
         value: 24.19.0
-      - key: NODE_ENV
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: APP_ENV
         value: production
       - key: APP_ORIGIN
         sync: false

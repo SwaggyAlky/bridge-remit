@@ -4,3 +4,6 @@ data/
 deployment.local.json
 test-results.local.json
 *.log
+__pycache__/
+*.pyc
+.venv/
