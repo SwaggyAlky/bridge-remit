@@ -4,7 +4,7 @@ services:
     name: bridge-remit
     runtime: node
     plan: free
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm run build
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm run build
     startCommand: node server/index.mjs
     healthCheckPath: /health
     envVars:
