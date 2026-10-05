@@ -71,3 +71,6 @@ Render 设置 `APP_ORIGIN=https://实际服务名.onrender.com`，RPC_URL 指向
 `docs/` 包含需求对照、架构和数据模型、Render 指南、用户手册、测试报告、10 分钟演示脚本、技术报告草稿、利益相关者验证表与个人贡献模板。报告仅陈述实际验证；公开部署信息应在部署后补充。
 
 来源：[World Bank RPW Q3 2025](https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf)、[Render Node](https://render.com/docs/deploy-node-express-app)、[Render 免费计划](https://render.com/docs/free)、[Ethereum 网络](https://ethereum.org/developers/docs/networks/)。世界银行全球平均费用是背景数据，不能代替所选通道或本项目的真实端到端费用证据。
+
+
+Sepolia 接入更新：四个合约与三个通道已部署并经公共 RPC 核验，公共配置已接入 Render。证据见 docs/SEPOLIA_VERIFICATION.json；此更新取代此前合约待配置的描述。实际客户汇款与多钱包端到端演示仍待完成。
