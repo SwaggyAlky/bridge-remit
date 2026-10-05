@@ -1,6 +1,8 @@
+> 当前后台已迁移 Python Flask。以 FLASK_MIGRATION.md 中的运行命令和 16 项合约 + 9 项 Flask 测试为准；下方旧命令或旧测试计数如有差异属于迁移前记录。
+
 # 测试报告
 
-日期：2026-10-05。环境：Windows，Node.js 24.19.0，Solidity 0.8.30，Ganache 7.9.2，ethers 6.15.0。编译使用 optimizer 200、viaIR、Shanghai。数据库集成测试使用 Node SQLite 内存库。
+日期：2026-10-05。环境：Windows，Python Flask 24.19.0，Solidity 0.8.30，Ganache 7.9.2，ethers 6.15.0。编译使用 optimizer 200、viaIR、Shanghai。数据库集成测试使用 Node SQLite 内存库。
 
 执行 `pnpm build` 和 `pnpm test`。修复本地 SQL 参数绑定后，完整测试最终 **24/24 通过**：16 项合约测试、8 项 API 测试。源码中测试可直接重跑，原始日志在本地 data/test-run.txt，含本地测试环境信息，不发布该日志。
 

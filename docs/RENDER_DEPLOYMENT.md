@@ -1,3 +1,5 @@
+> 当前后台已迁移 Python Flask。以 FLASK_MIGRATION.md 中的运行命令和 16 项合约 + 9 项 Flask 测试为准；下方旧命令或旧测试计数如有差异属于迁移前记录。
+
 # Render 和 Sepolia 部署指南
 
 ## 当前状态

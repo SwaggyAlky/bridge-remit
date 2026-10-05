@@ -1,0 +1,15 @@
+{
+  "health": {
+    "backend": "flask",
+    "chainConfigured": true,
+    "database": "postgres",
+    "status": "ok"
+  },
+  "walletSignatureLogin": "passed with disposable account; no chain transaction",
+  "nonceReplay": "rejected",
+  "snapshotRead": "passed",
+  "unauthorizedAuditAndInvoice": "rejected",
+  "logout": "passed",
+  "secureCookie": "passed",
+  "actualMetaMaskMultiWalletRemittance": "pending"
+}

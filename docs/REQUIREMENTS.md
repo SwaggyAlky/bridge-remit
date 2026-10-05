@@ -1,3 +1,5 @@
+> 当前后台已迁移 Python Flask。以 FLASK_MIGRATION.md 中的运行命令和 16 项合约 + 9 项 Flask 测试为准；下方旧命令或旧测试计数如有差异属于迁移前记录。
+
 # SC6113 要求对照
 
 | 文档要求 | 当前实现 | 验证状态 |
@@ -7,7 +9,7 @@
 | MetaMask 与钱包签名 | EIP-1193 钱包接入、消息签名登录、交易签名 | 钱包接口代码已实现；真实 MetaMask 待验收 |
 | 三个交互合约 | Registry、DemoUSD、CorridorBook、RemittanceEscrow | 四合约本地部署与交互测试通过 |
 | 十类区块链交易 | 18 个公开写方法，16 类有界面入口 | 主要方法在测试执行；详见测试报告 |
-| REST API 与持久数据库 | Node API，SQLite 本地、Postgres 云端 | SQLite API 测试通过；Postgres 云端待验证 |
+| REST API 与持久数据库 | Flask API，SQLite 本地、Postgres 云端 | SQLite API 测试通过；Postgres 云端待验证 |
 | 响应式面板、历史、日志、图表 | 桌面/手机 CSS，交易状态表、会话事件、核验回执、通道分布图 | 浏览器检查；真实钱包数据流程待验收 |
 | Gas 估算与优化 | 每次签名前 estimateGas；optimizer=200；批量比较 | 本地真实回执测量，非公网性能 |
 | 合约安全与测试 | 权限、重放、取消、到期、争议、批量原子性、余额不变量 | 16 项合约测试通过 |

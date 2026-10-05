@@ -1,3 +1,5 @@
+> 当前后台已迁移 Python Flask。以 FLASK_MIGRATION.md 中的运行命令和 16 项合约 + 9 项 Flask 测试为准；下方旧命令或旧测试计数如有差异属于迁移前记录。
+
 # 架构与设计图
 
 ## 系统架构
@@ -6,7 +8,7 @@ flowchart LR
  U[客户 / 管理员 / 审计员 / 代理] --> UI[Render 网页]
  UI --> MM[MetaMask 用户签名]
  MM --> C[Sepolia 四合约]
- UI --> API[Render Node REST API]
+ UI --> API[Render Flask REST API]
  API --> DB[(Postgres 持久数据库)]
  API -->|只读 RPC 与回执核验| C
  UI -.->|内置示例：无链上交易| EX[静态演示数据]

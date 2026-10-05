@@ -1,6 +1,6 @@
 # BridgeRemit Technical Report Draft
 
-Status: local prototype validated; public deployment and stakeholder evidence pending.
+Status: Flask backend migrated; local integration tested; Sepolia deployments verified; public multi-wallet remittance and stakeholder evidence pending.
 
 
 ## 1 BridgeRemit technical report
@@ -8,12 +8,12 @@ Status: local prototype validated; public deployment and stakeholder evidence pe
 
 ### Project scope
 
-BridgeRemit is a coursework DApp for migrant-worker family remittances and SME payroll or supplier payments. It combines a responsive Chinese-language interface, wallet signatures, four interacting Solidity contracts, a Node REST API, and persistent storage. Render is the intended host for the web application and Postgres database; the financial state belongs to a separately deployed Ethereum test network.
+BridgeRemit is a coursework DApp for migrant-worker family remittances and SME payroll or supplier payments. It combines a responsive English-language interface, wallet signatures, four interacting Solidity contracts, a Python Flask REST API, and persistent storage. Render is the intended host for the web application and Postgres database; the financial state belongs to a separately deployed Ethereum test network.
 
 
 ### Current result
 
-The implementation was compiled with Solidity 0.8.30, optimization enabled for 200 runs, viaIR, and the Shanghai EVM target. Twenty-four local contract and API tests passed on 5 October 2026. The tests use Ganache and actual local-chain transactions, not public-network transactions. The browser was opened to inspect the interface and built-in example data. This report is a draft: public deployment verification, real MetaMask acceptance, stakeholder feedback and individual contribution evidence must be completed by the team.
+Four Solidity contracts and seven deployment/configuration transactions are verified on Sepolia. The backend has been migrated to Python Flask / Web3.py. Sixteen Solidity tests and nine Flask integration tests passed on 5 October 2026. Flask tests use actual Ganache transactions for creation, claim and audit, with SQLite reopening, signature replay protection and forwarding receipts. These are local tests, not a completed public multi-wallet remittance demonstration.
 
 
 ### Financial boundary
@@ -77,7 +77,7 @@ Local correctness criteria are rejection of unauthorized mutation, nonce replay,
 
 ### Deployment layers
 
-The browser loads static HTML, CSS and a locally served ethers library from the Node service. It accesses the same-origin API for authentication, invoices and verified receipts. MetaMask signs user messages and sends transactions directly through its provider. The API uses a read-only RPC connection to inspect contract roles, payment state and receipts. The backend never needs a user signing key.
+The browser loads static HTML, CSS and a locally served ethers library from the Flask service. It accesses the same-origin API for authentication, invoices and verified receipts. MetaMask signs user messages and sends transactions directly through its provider. The API uses a read-only RPC connection to inspect contract roles, payment state and receipts. The backend never needs a user signing key.
 
 
 ### On-chain records
@@ -197,12 +197,12 @@ GET /health checks database availability. GET /api/config returns only public de
 
 ### Storage implementation
 
-Development uses the Node SQLite driver and write-ahead logging; the API tests use an in-memory SQLite database. Production requires DATABASE_URL and creates a bounded Postgres connection pool. The service fails startup instead of silently falling back to ephemeral SQLite when NODE_ENV is production. The SQL schema uses string UUIDs, BIGINT timestamps and unique transaction hashes, making the same parameterized queries portable between both adapters.
+Development uses Python sqlite3 with write-ahead logging; Flask tests use temporary persistent SQLite files and verify reopening preserves drafts and sessions. Production requires DATABASE_URL and uses psycopg connections scoped to individual transactions. Missing production storage fails startup. The original PostgreSQL schema is retained, with parameterized SQL, UUIDs, BIGINT timestamps and unique transaction hashes.
 
 
 ### Receipt verification
 
-The submitted transaction hash must identify a successful transaction whose sender matches the signed-in wallet and whose target is one of the configured contract addresses. The block must have the configured number of confirmations. The stored gas value comes from the actual receipt. Repeated submission is idempotent through the unique hash. An audit entry does not by itself prove a bank payout, nor does a settlement-agent hash prove off-chain receipt authenticity.
+A receipt must be successful and its transaction sender must match the signed-in wallet. Its target must be a configured contract, or a configured contract must have emitted a known event in the receipt. This supports wallet forwarding transactions while retaining sender checks. Confirmations are required, gas comes from the receipt, and canonical transaction hashes make duplicate submissions idempotent. No receipt proves a real bank payout.
 
 
 ### Scale and failure behavior
@@ -238,7 +238,7 @@ A single administrator controls role approval, reference rates and dispute decis
 
 ### Executed tests
 
-The final local run completed twenty-four tests with zero failures: sixteen contract tests and eight API tests. Contract cases cover authority boundaries, registration, faucet restrictions, settlement, replay, gross refund, eligibility and allowance, dispute freeze and resolution, expiry, pause behavior, quote protection, batch rollback, batch success, batch/input bounds, attestation and conservation. API cases cover health/config, origin and address validation, wallet nonce replay, chain-derived roles, invoice isolation, audit access, receipt ownership/idempotence, logout and static traversal.
+The final local run completed twenty-five tests with zero failures: sixteen contract tests and nine Flask API tests. Contract cases cover authority boundaries, registration, faucet restrictions, settlement, replay, gross refund, eligibility and allowance, dispute freeze and resolution, expiry, pause behavior, quote protection, batch rollback, batch success, batch/input bounds, attestation and conservation. API cases cover health/config, origin and address validation, wallet nonce replay, chain-derived roles, invoice isolation, audit access, receipt ownership/idempotence, logout and static traversal.
 
 
 ### Gas measurement method
@@ -253,7 +253,7 @@ The recorded two-payment batch used fewer gas per payment than the recorded sing
 
 ### Remaining validation
 
-Public cloud database persistence, actual MetaMask signing, public chain receipts, a full automatic indexer, user task timing and end-to-end remittance economics remain unmeasured. The passing tests substantiate local correctness in the stated scenarios. They should not be extrapolated to public throughput, real costs or user satisfaction.
+Actual multi-wallet Sepolia remittance and claim, cloud database restart persistence, user task timing and end-to-end remittance economics remain unmeasured. Public deployment evidence is in DEPLOYMENT_STATUS.md and SEPOLIA_VERIFICATION.json; Flask migration evidence is in FLASK_MIGRATION.md. Passing local tests do not establish public throughput, real costs or user satisfaction.
 
 
 | Operation | Recorded gasUsed |
@@ -271,7 +271,7 @@ Public cloud database persistence, actual MetaMask signing, public chain receipt
 
 ### Render configuration
 
-render.yaml defines a free Node web service and a separate free Postgres instance. It installs from the committed lockfile, compiles contracts and copies the local browser library, then starts the server on Render's PORT. APP_ORIGIN must match the final HTTPS service URL exactly. DATABASE_URL is injected from Postgres. RPC_URL connects to Sepolia, and deployment.sepolia.json contains public contract configuration. No user or deployment signing key is required on Render.
+render.yaml defines a free Python Flask web service and a separate free Postgres instance. It installs from the committed lockfile, compiles contracts and copies the local browser library, then starts the server on Render's PORT. APP_ORIGIN must match the final HTTPS service URL exactly. DATABASE_URL is injected from Postgres. RPC_URL connects to Sepolia, and deployment.sepolia.json contains public contract configuration. No user or deployment signing key is required on Render.
 
 
 ### Public contract deployment
@@ -286,4 +286,4 @@ Record the public URL, deployed contracts and deployment transactions. Execute s
 
 ### References
 
-World Bank, Remittance Prices Worldwide Q3 2025: https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf . Render, Node deployment: https://render.com/docs/deploy-node-express-app . Render, Blueprint specification: https://render.com/docs/blueprint-spec . Render, free-plan restrictions: https://render.com/docs/free . Ethereum, development networks: https://ethereum.org/developers/docs/networks/ . Course source: SC6113 Group Project.docx supplied by the user. Implementation evidence: contracts/BridgeRemit.sol, tests/*.test.mjs and the local test output dated 5 October 2026.
+World Bank, Remittance Prices Worldwide Q3 2025: https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf . Render, native runtimes: https://render.com/docs/native-runtimes . Render, Blueprint specification: https://render.com/docs/blueprint-spec . Render, free-plan restrictions: https://render.com/docs/free . Ethereum, development networks: https://ethereum.org/developers/docs/networks/ . Course source: SC6113 Group Project.docx supplied by the user. Implementation evidence: contracts/BridgeRemit.sol, tests/*.test.mjs and the local test output dated 5 October 2026.

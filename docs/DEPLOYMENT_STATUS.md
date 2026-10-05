@@ -1,3 +1,5 @@
+> 当前后台已迁移 Python Flask。以 FLASK_MIGRATION.md 中的运行命令和 16 项合约 + 9 项 Flask 测试为准；下方旧命令或旧测试计数如有差异属于迁移前记录。
+
 # 公开部署记录
 
 核验日期：2026-10-05，Asia/Shanghai。
@@ -5,7 +7,7 @@
 - 公开网页：https://bridge-remit.onrender.com
 - 钱包部署助手：https://bridge-remit.onrender.com/deploy.html
 - GitHub 源码：https://github.com/SwaggyAlky/bridge-remit
-- Render Service ID：srv-db1kcu7avr4c73cbttq0，Node，Free，Oregon。
+- Render Service ID：srv-db1kcu7avr4c73cbttq0，Python Flask，Free，Oregon。
 - Blueprint ID：exs-db1kc7qd0e5s7385pq30。
 - 数据库：bridge-remit-db，Postgres 18，Render 显示 Available。
 - 第一轮公开部署使用提交 8a02c9a6e6e988db869934e2dbb8186e2e130e4e，Render 显示 Live。
