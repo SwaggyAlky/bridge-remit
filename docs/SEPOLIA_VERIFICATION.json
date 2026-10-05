@@ -1,0 +1,59 @@
+{
+  "verifiedAt": "2026-10-05T07:14:22.569Z",
+  "chainId": 11155111,
+  "admin": "0x0973c0Fd58D6bCD0CB0750aA9FCD80e153d5b090",
+  "contracts": {
+    "ParticipantRegistry": {
+      "address": "0x01BaDAE218b2f01Ab21E1234DABF0188FDDb3278",
+      "transaction": "0xd46c3c44c92920d4b6a4fc11635e52f5f3df6c347f773178aee0c1d46fe6402e",
+      "block": 11847304,
+      "gasUsed": "378865",
+      "runtimeBytes": 1301
+    },
+    "DemoUSD": {
+      "address": "0x987dcc33127B32Dd8d62f6ab37E20788d8DF389d",
+      "transaction": "0xcd245bde32807a38a93cadc1ae9639a088764c201c82171f5ca9761d0866a99c",
+      "block": 11847307,
+      "gasUsed": "482754",
+      "runtimeBytes": 1979
+    },
+    "CorridorBook": {
+      "address": "0x7aE3AA1c1245DbAB9250568E304B82A7eEBf6939",
+      "transaction": "0x6271645993de58309b2cb6f98863437bb06241ec81268550463e30162f5a4508",
+      "block": 11847310,
+      "gasUsed": "304528",
+      "runtimeBytes": 1155
+    },
+    "RemittanceEscrow": {
+      "address": "0x1d3ad7c7f37a2Bcfc4d678295964A422dC07abD8",
+      "transaction": "0xf4f50499ac07845697ddedcf190169773590765f0a397d4f79eb3dcfda5ef227",
+      "block": 11847314,
+      "gasUsed": "1488591",
+      "runtimeBytes": 6536
+    }
+  },
+  "corridors": {
+    "SG-PH": {
+      "rate": 56.5,
+      "feeBps": 50,
+      "active": true,
+      "transaction": "0x9497aaf3d55bc2dd49374ea60657bec4a02b73540ee9881fdf90b00bb128d0e3",
+      "block": 11847317
+    },
+    "SG-IN": {
+      "rate": 83.5,
+      "feeBps": 50,
+      "active": true,
+      "transaction": "0x98e404808475201bfc3cce72f08d3b6997d5efad026f3d34ebc73ad81411c167",
+      "block": 11847320
+    },
+    "SG-BD": {
+      "rate": 120,
+      "feeBps": 50,
+      "active": true,
+      "transaction": "0xd51a04eab2be616e2c3ade9a844f11df1a92ecd56c2110042edf9c0157253834",
+      "block": 11847323
+    }
+  },
+  "transferCount": "0"
+}
