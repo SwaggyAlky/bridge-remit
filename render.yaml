@@ -1,0 +1,30 @@
+# Free coursework deployment. Confirm plans in Render before creating resources.
+services:
+  - type: web
+    name: bridge-remit
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm run build
+    startCommand: node server/index.mjs
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.19.0
+      - key: NODE_ENV
+        value: production
+      - key: APP_ORIGIN
+        sync: false
+      - key: RPC_URL
+        sync: false
+      - key: DEPLOYMENT_FILE
+        value: deployment.sepolia.json
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bridge-remit-db
+          property: connectionString
+databases:
+  - name: bridge-remit-db
+    plan: free
+    databaseName: bridgeremit
+    user: bridgeremit
+    ipAllowList: []

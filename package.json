@@ -1,0 +1,7 @@
+{
+  "name": "bridge-remit", "version": "1.0.0", "private": true, "type": "module",
+  "engines": {"node": ">=22.13.0"},
+  "scripts": {"build": "node scripts/build.mjs", "start": "node server/index.mjs", "test": "node --test --test-concurrency=1 tests/*.test.mjs", "demo": "node scripts/demo.mjs", "deploy:local": "node scripts/deploy.mjs", "deploy:sepolia": "node scripts/deploy.mjs --sepolia"},
+  "dependencies": {"ethers": "6.15.0", "pg": "8.16.3"},
+  "devDependencies": {"ganache": "7.9.2", "solc": "0.8.30"}
+}
