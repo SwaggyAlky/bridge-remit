@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import ganache from 'ganache';
+import {ethers} from 'ethers';
+import solc from 'solc';
+import {deploy} from '../scripts/deploy.mjs';
+const chain=ganache.server({chain:{chainId:1337,hardfork:'shanghai'},logging:{quiet:true}});
+await chain.listen(18546,'127.0.0.1');
+const provider=new ethers.JsonRpcProvider('http://127.0.0.1:18546',undefined,{cacheTimeout:0});
+const admin=await provider.getSigner(0),d=await deploy(admin);
+const source='pragma solidity ^0.8.30; contract Relay { function forward(address target, bytes calldata data) external { (bool ok,) = target.call(data); require(ok); } }';
+const compiled=JSON.parse(solc.compile(JSON.stringify({language:'Solidity',sources:{'Relay.sol':{content:source}},settings:{evmVersion:'shanghai',outputSelection:{'*':{'*':['abi','evm.bytecode.object']}}}}))).contracts['Relay.sol'].Relay;
+const relay=await new ethers.ContractFactory(compiled.abi,'0x'+compiled.evm.bytecode.object,admin).deploy();await relay.waitForDeployment();
+const accounts=Object.fromEntries(Object.entries(chain.provider.getInitialAccounts()).map(([a,v])=>[a,{secretKey:v.secretKey}]));
+fs.mkdirSync('data',{recursive:true});fs.writeFileSync('data/flask-fixture.json',JSON.stringify({...d,accounts,relay:{address:await relay.getAddress(),abi:compiled.abi}}));
+console.log('Flask integration test chain ready on 18546');
+process.on('SIGINT',async()=>{await provider.destroy();await chain.close();process.exit();});
