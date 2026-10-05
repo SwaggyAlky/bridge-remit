@@ -31,7 +31,7 @@ Source, tests, configuration, architecture diagrams, user manual and a ten-minut
 
 ### Evidence
 
-The World Bank Remittance Prices Worldwide Q3 2025 report records a global average remittance cost of 6.36%, compared with 6.49% in Q1 2025. This is evidence that remittance costs remain material across surveyed corridors. It is not a Singapore-to-Philippines quote, an SME trade-finance benchmark or proof of the prototype's savings. Source: World Bank RPW Issue 55 / Q3 2025, published at the report URL in the references.
+The World Bank Remittance Prices Worldwide Q3 2025 report records a global average remittance cost of 6.36%, compared with 6.49% in Q1 2025. This is evidence that remittance costs remain material across surveyed corridors. It is not a Singapore-to-Philippines quote, an SME trade-finance benchmark or proof of the prototype's savings. Source: World Bank RPW Issue 54 / Q3 2025, published at the report URL in the references.
 
 
 ### Target users
