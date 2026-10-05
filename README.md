@@ -2,7 +2,7 @@
 
 面向务工人员家庭汇款与中小企业工资、供应商付款的 SC6113 课程原型。支持钱包签名、链上托管、批量付款、争议处理与审计。四个合约、四种角色和超过十类链上操作。
 
-**交付状态（2026-10-05）：** 合约与 API 本地 24 项测试通过。公开 Render URL、Sepolia 合约、真实 MetaMask 验证、实际利益相关者反馈和小组贡献记录仍待完成。内置样例数据与本地 Ganache 测试不是公开部署证据。本项目没有真实法币入金、银行出金、真实 KYC 或跨链桥，不应处理真实资金。
+**交付状态（2026-10-05）：** 合约与 API 本地 24 项测试通过。网页/API 已部署到 [Render](https://bridge-remit.onrender.com)，云端 Postgres 连接正常。当前公开网页为示例查看和部署助手，Sepolia 合约尚未接入，不能进行链上汇款。真实 MetaMask 验证、实际利益相关者反馈和小组贡献记录仍待完成。详见 [公开部署记录](docs/DEPLOYMENT_STATUS.md)。本项目没有真实法币入金、银行出金、真实 KYC 或跨链桥，不应处理真实资金。
 
 ## 本地启动
 
@@ -39,7 +39,7 @@ $env:DEPLOYER_PRIVATE_KEY='仅用于测试网的部署钱包私钥'
 pnpm deploy:sepolia
 ```
 
-生成的 `deployment.sepolia.json` 包含公共合约地址、ABI 和部署元数据，应提交到 GitHub。部署脚本强制 Chain ID 为 11155111。私钥不需要上传 Render；网页用户通过自己的 MetaMask 签名。若不愿使用本地部署密钥，可在 Remix 按相同构造顺序部署，再使用编译 ABI 组装相同配置格式。
+推荐在装有 MetaMask 的浏览器打开 [钱包部署助手](https://bridge-remit.onrender.com/deploy.html)，完成七次测试网交易签名后下载 `deployment.sepolia.json`。它包含公共合约地址、ABI 和交易 hash，可提交到 GitHub，不含私钥。上述命令行方式为替代选择。部署脚本和网页助手均强制 Sepolia 网络；私钥不需要上传 Render。
 
 Render 设置 `APP_ORIGIN=https://实际服务名.onrender.com`，RPC_URL 指向同一 Sepolia 网络，DATABASE_URL 由 Blueprint 数据库注入。部署完成后验证 `/health`、钱包登录、两客户汇款领取与审核日志。Web 的“healthy”不代表钱包、合约或数据库完整流程已验收。
 
