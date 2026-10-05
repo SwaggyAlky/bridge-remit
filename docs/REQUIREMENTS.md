@@ -11,10 +11,10 @@
 | 响应式面板、历史、日志、图表 | 桌面/手机 CSS，交易状态表、会话事件、核验回执、通道分布图 | 浏览器检查；真实钱包数据流程待验收 |
 | Gas 估算与优化 | 每次签名前 estimateGas；optimizer=200；批量比较 | 本地真实回执测量，非公网性能 |
 | 合约安全与测试 | 权限、重放、取消、到期、争议、批量原子性、余额不变量 | 16 项合约测试通过 |
-| 云部署 | Render Blueprint、Postgres、Sepolia 部署脚本 | 尚未公开上线 |
+| 云部署 | Render Blueprint、Postgres、Sepolia 部署脚本 | 网页/API 已上线；Postgres 连接通过；Sepolia 待接入 |
 | 10–15 页技术报告 | 技术报告草稿与 PDF | 部署、访谈、贡献证据待补 |
 | 架构、交互、模型、流程、UI 图 | ARCHITECTURE.md 五个 Mermaid 图，附 UI 截图 | 可编辑图源 |
-| GitHub 代码及贡献历史 | 可发布源码及 .gitignore | GitHub 上传和真实历史待完成 |
+| GitHub 代码及贡献历史 | 源码已公开发布及 .gitignore | SwaggyAlky/bridge-remit 已发布；各成员真实贡献记录待补 |
 | 演示、手册、贡献报告 | 10 分钟脚本、手册和个人贡献模板 | 录像/现场演示及个人填报待完成 |
 
 该课程文档作为需求参考，不构成对外发送消息、创建账号、接受收费或伪造证据的授权。课程要求的 enterprise-grade / production-ready 是评估目标，本交付当前为经过本地验证的测试网原型。
